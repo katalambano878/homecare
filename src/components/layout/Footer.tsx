@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { brand } from "@/config/brand";
 
 export function Footer() {
     const pathname = usePathname();
@@ -67,6 +68,7 @@ export function Footer() {
                             <p className="text-[14.5px] md:text-[15.5px] text-white">
                                 Suite 17/89-97 Jones Street, Ultimo, NSW 2007 Australia
                             </p>
+                            <p className="text-[14.5px] md:text-[15.5px] text-white">{brand.contact.address.abn}</p>
                             <a href="mailto:info.help@midaid.com" className="text-[14px] text-white/80 hover:text-white transition-colors">info.help@midaid.com</a>
                         </div>
 

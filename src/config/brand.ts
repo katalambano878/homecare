@@ -11,7 +11,8 @@ export const brand = {
             city: "Ultimo",
             state: "NSW",
             zip: "2007",
-            full: "Suite 17/89-97 Jones Street, Ultimo, NSW 2007 Australia"
+            full: "Suite 17/89-97 Jones Street, Ultimo, NSW 2007 Australia",
+            abn: "ABN-15 349 332 740"
         }
     },
     colors: {
