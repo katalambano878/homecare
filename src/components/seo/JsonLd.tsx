@@ -8,7 +8,7 @@ export function OrganizationJsonLd() {
         logo: "https://midaid.com/images/midaid-logo.png",
         image: "https://midaid.com/images/og-image.png",
         description: "MidAid provides compassionate, professional in-home senior care across Australia. Our experienced caregivers help your loved ones thrive at home with dignity and independence.",
-        telephone: "+61489987299",
+        telephone: ["+61489987299", "+61489986778"],
         email: "info.help@midaid.com",
         address: {
             "@type": "PostalAddress",

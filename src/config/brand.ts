@@ -5,6 +5,9 @@ export const brand = {
     legalName: "MidAid Home Care Services",
     contact: {
         phone: "0489987299",
+        phoneDisplay: "0489 987 299",
+        phoneAlt: "+61489986778",
+        phoneAltDisplay: "+61 489 986 778",
         email: "info.help@midaid.com",
         address: {
             line1: "Suite 17/89-97 Jones Street",

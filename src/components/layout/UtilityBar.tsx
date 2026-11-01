@@ -5,6 +5,7 @@ import { Facebook, Instagram, Twitter, Youtube, Linkedin, Menu } from "lucide-re
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Link from "next/link";
 import { typesOfCareNav, homeCareInfoNav } from "./Header";
+import { brand } from "@/config/brand";
 
 export function UtilityBar() {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -14,9 +15,13 @@ export function UtilityBar() {
         <div className="text-white py-[6px] relative z-50" style={{ backgroundColor: '#275596' }}>
             <div className="container mx-auto flex justify-between items-center px-4 sm:px-5 md:px-6 max-w-7xl">
                 {/* Left: Phone */}
-                <div className="flex items-center space-x-2">
-                    <a href="tel:0489987299" className="flex items-center text-[16px] sm:text-[15px] font-bold hover:opacity-80 transition-opacity tracking-wide">
-                        <span>0489 987 299</span>
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                    <a href={`tel:${brand.contact.phone}`} className="flex items-center text-[16px] sm:text-[15px] font-bold hover:opacity-80 transition-opacity tracking-wide">
+                        <span>{brand.contact.phoneDisplay}</span>
+                    </a>
+                    <span className="text-white/50" aria-hidden="true">|</span>
+                    <a href={`tel:${brand.contact.phoneAlt}`} className="flex items-center text-[16px] sm:text-[15px] font-bold hover:opacity-80 transition-opacity tracking-wide">
+                        <span>{brand.contact.phoneAltDisplay}</span>
                     </a>
                 </div>
 

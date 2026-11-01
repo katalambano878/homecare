@@ -72,9 +72,12 @@ export function Footer() {
                             <a href="mailto:info.help@midaid.com" className="text-[14px] text-white/80 hover:text-white transition-colors">info.help@midaid.com</a>
                         </div>
 
-                        <div className="mb-6 md:mb-8">
-                            <a href="tel:0489987299" className="text-[22px] sm:text-[26px] md:text-[32px] font-bold tracking-tight hover:opacity-90 transition-opacity font-sans" style={{ color: '#dca626' }}>
-                                0489 987 299
+                        <div className="mb-6 md:mb-8 flex flex-col items-start gap-1">
+                            <a href={`tel:${brand.contact.phone}`} className="text-[22px] sm:text-[26px] md:text-[32px] font-bold tracking-tight hover:opacity-90 transition-opacity font-sans" style={{ color: '#dca626' }}>
+                                {brand.contact.phoneDisplay}
+                            </a>
+                            <a href={`tel:${brand.contact.phoneAlt}`} className="text-[18px] sm:text-[20px] md:text-[24px] font-bold tracking-tight hover:opacity-90 transition-opacity font-sans" style={{ color: '#dca626' }}>
+                                {brand.contact.phoneAltDisplay}
                             </a>
                         </div>
 

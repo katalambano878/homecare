@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Newsletter } from "@/components/marketing/Newsletter";
 import { FloatingGetStarted } from "@/components/layout/FloatingGetStarted";
+import { brand } from "@/config/brand";
 
 export default function ContactUsPage() {
     const [interest, setInterest] = useState<"home-care" | "employment">("home-care");
@@ -45,7 +46,11 @@ export default function ContactUsPage() {
                     </h1>
                     <p className="text-[16.5px] text-[#333333] mb-4 leading-relaxed">
                         If you have a general question or want to provide helpful feedback regarding your
-                        local MidAid, please email <a href="mailto:info.help@midaid.com" className="text-[#3b7ea1] hover:text-[#043b67] hover:underline">info.help@midaid.com</a>.
+                        local MidAid, please email <a href="mailto:info.help@midaid.com" className="text-[#3b7ea1] hover:text-[#043b67] hover:underline">info.help@midaid.com</a>{" "}
+                        or call{" "}
+                        <a href={`tel:${brand.contact.phone}`} className="text-[#3b7ea1] hover:text-[#043b67] hover:underline">{brand.contact.phoneDisplay}</a>
+                        {" "}or{" "}
+                        <a href={`tel:${brand.contact.phoneAlt}`} className="text-[#3b7ea1] hover:text-[#043b67] hover:underline">{brand.contact.phoneAltDisplay}</a>.
                     </p>
                     <p className="text-[16.5px] text-[#333333] leading-relaxed">
                         For Franchise Opportunities, <a href="#" className="text-[#3b7ea1] hover:text-[#043b67] hover:underline">click here.</a>
