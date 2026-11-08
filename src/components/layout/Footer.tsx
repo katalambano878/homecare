@@ -156,7 +156,8 @@ export function Footer() {
                         The Franchisor, Living Assistance Services Inc., does not control or manage the day to day business operations of any MidAid franchised agency.
                     </p>
                     <p>
-                        &copy;{new Date().getFullYear()} MidAid is a registered trademark of Living Assistance Services, Inc.
+                        &copy;{new Date().getFullYear()} MidAid is a registered trademark of Living Assistance Services, Inc. &middot; Powered by{' '}
+                        <a href="https://doctorbarns.com" target="_blank" rel="noopener" className="hover:underline">Doctor Barns Tech</a>
                     </p>
                     <div className="flex flex-wrap justify-center gap-x-2 text-[#3b7ea1] font-medium pt-2">
                         <Link href="#" className="underline decoration-1 underline-offset-2 hover:text-[#043b67] transition-colors">Privacy Policy</Link>
