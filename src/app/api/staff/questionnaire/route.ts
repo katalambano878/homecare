@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
+import { isPlainPostgres } from "@/lib/db/mode";
+import { createClient as createPgClient } from "@/lib/db/query-builder";
 
 export async function POST(request: NextRequest) {
     try {
@@ -16,10 +18,12 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: "Provide form_data (interview form) or availability" }, { status: 400 });
         }
 
-        const supabase = createClient(
-            process.env.NEXT_PUBLIC_SUPABASE_URL!,
-            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-        );
+        const supabase = isPlainPostgres()
+            ? createPgClient()
+            : createSupabaseClient(
+                process.env.NEXT_PUBLIC_SUPABASE_URL!,
+                process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+            );
 
         const row: Record<string, unknown> = {
             staff_id: body.staff_id,

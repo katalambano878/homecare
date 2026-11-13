@@ -1,6 +1,9 @@
 import { createClient } from '@supabase/supabase-js';
+import { isPlainPostgres } from '@/lib/db/mode';
+import { createClient as createPgClient } from '@/lib/db/query-builder';
 
 function getPublicClient() {
+    if (isPlainPostgres()) return createPgClient();
     const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
     const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
     if (!url || !key) return null;
@@ -80,7 +83,9 @@ export async function fetchSettings() {
         const { data } = await supabase.from('site_settings').select('*');
         if (!data) return null;
         const map: Record<string, string> = {};
-        data.forEach((s) => { if (s.key && s.value) map[s.key] = s.value; });
+        data.forEach((s: { key?: string | null; value?: string | null }) => {
+            if (s.key && s.value) map[s.key] = s.value;
+        });
         return map;
     } catch {
         return null;

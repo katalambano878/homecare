@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
+    "bcryptjs": "^2.4.3",
+    "jose": "^5.9.6",
+    "pg": "^8.13.1",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.98.0",
     "@tiptap/extension-image": "^3.20.0",
@@ -32,7 +35,8 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "pg": "^8.13.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/pg": "^8.11.10",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

@@ -1,4 +1,6 @@
 import { US_STATES } from "@/lib/constants/states";
+
+export const dynamic = "force-dynamic";
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -89,7 +91,7 @@ export default async function StateLocationPage({ params }: { params: { state: s
                     {hasOffices ? (
                         <>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-16">
-                                {offices.map((office) => (
+                                {offices.map((office: { id: string; name?: string | null; address?: string | null; city?: string | null; state?: string | null; zip?: string | null }) => (
                                     <div key={office.id} className="bg-white border border-gray-200 rounded-[8px] p-8 text-center shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
                                         <h3 className="text-[20px] font-bold text-[#043b67] mb-4">
                                             MidAid Senior Home Care<br/>
