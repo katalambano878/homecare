@@ -15,20 +15,55 @@ function usesPlainPostgres(): boolean {
   return !!(process.env.DATABASE_URL || process.env.POSTGRES_URL);
 }
 
-function extractToken(request: NextRequest): string | undefined {
-  for (const [name, cookie] of request.cookies) {
-    if (!name.startsWith("sb-") && !name.startsWith("app-")) continue;
-    if (!name.includes("auth")) continue;
+function decodeBase64Url(value: string): string {
+  const base64 = value.replace(/-/g, "+").replace(/_/g, "/");
+  const padded = base64 + "=".repeat((4 - (base64.length % 4)) % 4);
+  const binary = atob(padded);
+  const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
+function sessionToken(raw: string): string | undefined {
+  let value = raw.trim();
+  if (value.startsWith("base64-")) {
     try {
-      const parsed = JSON.parse(cookie.value);
-      if (Array.isArray(parsed) && parsed[0]) return String(parsed[0]);
-      if (parsed && typeof parsed === "object" && parsed.access_token) {
-        return String(parsed.access_token);
-      }
-      if (typeof parsed === "string") return parsed;
+      value = decodeBase64Url(value.slice("base64-".length));
     } catch {
-      if (cookie.value) return cookie.value;
+      return undefined;
     }
+  }
+  try {
+    const parsed = JSON.parse(value);
+    if (Array.isArray(parsed) && typeof parsed[0] === "string") return parsed[0];
+    if (parsed && typeof parsed === "object" && typeof parsed.access_token === "string") {
+      return parsed.access_token;
+    }
+    if (typeof parsed === "string") return parsed;
+  } catch {
+    if (value.split(".").length === 3) return value;
+  }
+  return undefined;
+}
+
+function extractToken(request: NextRequest): string | undefined {
+  const groups = new Map<string, { index: number; value: string }[]>();
+  for (const cookie of request.cookies.getAll()) {
+    const match = cookie.name.match(/^(?:sb|app)-.*auth-token(?:\.(\d+))?$/);
+    if (!match) continue;
+    const base = cookie.name.replace(/\.\d+$/, "");
+    const parts = groups.get(base) ?? [];
+    parts.push({ index: match[1] ? Number(match[1]) : 0, value: cookie.value });
+    groups.set(base, parts);
+  }
+
+  for (const parts of groups.values()) {
+    const token = sessionToken(
+      parts
+        .sort((a, b) => a.index - b.index)
+        .map((part) => part.value)
+        .join("")
+    );
+    if (token) return token;
   }
   return undefined;
 }

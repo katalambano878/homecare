@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
 export default function AdminLoginPage() {
@@ -9,24 +8,27 @@ export default function AdminLoginPage() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-    const router = useRouter();
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setError("");
         setLoading(true);
 
-        const supabase = createClient();
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        try {
+            const supabase = createClient();
+            const { error } = await supabase.auth.signInWithPassword({ email, password });
 
-        if (error) {
-            setError(error.message);
+            if (error) {
+                setError(error.message);
+                setLoading(false);
+                return;
+            }
+
+            window.location.assign("/admin");
+        } catch (err) {
+            setError(err instanceof Error ? err.message : "Sign in failed");
             setLoading(false);
-            return;
         }
-
-        router.push("/admin");
-        router.refresh();
     };
 
     return (
